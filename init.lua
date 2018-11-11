@@ -1,3 +1,5 @@
+local default_yield = 3
+
 local node_list = {
 	-- GLASS PANES-----------------------------------------------------
 	{	name = "glass_normal", 
@@ -244,7 +246,7 @@ for _,node in ipairs(node_list) do
 	})
 	
 	
-	minetest.register_craft({output = "glass_stained:" .. node.name .. " " .. (node.yield or 3),
+	minetest.register_craft({output = "glass_stained:" .. node.name .. " " .. (node.yield or default_yield),
 		recipe = node.recipe
 	})
 	
