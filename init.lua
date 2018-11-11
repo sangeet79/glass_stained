@@ -1,5 +1,5 @@
 local node_list = {
-	-- GLASS ----------------------------------------------------------
+	-- GLASS PANES-----------------------------------------------------
 	{	name = "glass_normal", 
 		description = "Normal Glass", 
 		tiles = {"default_glass.png"},
@@ -8,6 +8,7 @@ local node_list = {
 			{"default:glass"},
 			{"default:glass"},
 		},
+		yield = 16,
 	},
 	{	name = "obsidian_glass_normal", 
 		description = "Normal Obsidian Glass", 
@@ -17,6 +18,7 @@ local node_list = {
 			{"default:obsidian_glass"},
 			{"default:obsidian_glass"},
 		},
+		yield = 16,
 	},
 	
 	-- STEEL BARS -----------------------------------------------------
@@ -28,6 +30,7 @@ local node_list = {
 			{"default:steel_ingot"},
 			{"default:steel_ingot"},
 		},
+		yield = 8,
 	},
 	{	name = "steel_bars_fancy", 
 		description = "Fancy Steel Bars", 
@@ -37,6 +40,7 @@ local node_list = {
 			{"glass_stained:steel_bars_normal"},
 			{"glass_stained:steel_bars_normal"},
 		},
+		yield = 12,
 		no_derivatives = true,
 	},
 	
@@ -215,6 +219,7 @@ local node_list = {
 for _,node in ipairs(node_list) do
 
 	-- Single 1x1 node
+	
 	minetest.register_node("glass_stained:" .. node.name, {
 		description = node.description,
 		drawtype = "nodebox",
@@ -231,14 +236,15 @@ for _,node in ipairs(node_list) do
 		selection_box = {
 			type = "fixed",
 	        fixed = {
-	            {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	            {-0.5, -0.5, -0.25, 0.5, 0.5, 0.25},
 	        },
 	    },
 		groups = {cracky=3},
 		use_texture_alpha = true,
 	})
 	
-	minetest.register_craft({output = "glass_stained:" .. node.name,
+	
+	minetest.register_craft({output = "glass_stained:" .. node.name .. " " .. (node.yield or 3),
 		recipe = node.recipe
 	})
 	
@@ -246,41 +252,161 @@ for _,node in ipairs(node_list) do
 		goto eol
 	end
 	
-		-- Double vertical 1x2 node
-		minetest.register_node("glass_stained:" .. node.name .. "_top", {
-			description = node.description,
-			drawtype = "nodebox",
-			tiles = node.tiles,
-			paramtype = "light",
-			paramtype2 = "facedir",
-			sunlight_propagates = true,
-			node_box = {
-				type = "fixed",
-				fixed = {
-					{-0.5, -0.5, -0, 0.5, 1.5, 0},
-				},
-			},
-			selection_box = {
-				type = "fixed",
-		        fixed = {
-		            {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-		        },
-		    },
-			groups = {cracky=3},
-			use_texture_alpha = true,
-		})
+	-- Double pane: top is decorative and can noclip through some slopes and such
 	
-		minetest.register_craft({output = "glass_stained:" .. node.name .. "_top",
-			recipe ={
-				{"glass_stained:" .. node.name},
-				{"glass_stained:" .. node.name},
+	minetest.register_node("glass_stained:" .. node.name .. "_double", {
+		description = node.description .. " Double",
+		drawtype = "nodebox",
+		tiles = node.tiles,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		sunlight_propagates = true,
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{-0.5, -0.5, -0, 0.5, 1.5, 0},
 			},
-		})
+		},
+		selection_box = {
+			type = "fixed",
+	        fixed = {
+	            {-0.5, -0.5, -0.25, 0.5, 0.5, 0.25},
+	        },
+	    },
+		groups = {cracky=3},
+		use_texture_alpha = true,
+	})
+
+	minetest.register_craft({output = "glass_stained:" .. node.name .. "_double",
+		recipe ={
+			{"glass_stained:" .. node.name},
+			{"glass_stained:" .. node.name},
+		},
+	})
+	
+	minetest.register_craft({output = "glass_stained:" .. node.name .. " 2",
+	        type = "shapeless",
+	        recipe ={ "glass_stained:" .. node.name .. "_double" }
+	})
+		
+	-- backwards compatible
+	minetest.register_alias("glass_stained:" .. node.name .. "_top", "glass_stained:" .. node.name .. "_double")	
+	
+	-- Triple pane: top and right part are decorative
+	
+	minetest.register_node("glass_stained:" .. node.name .. "_triple", {
+		description = node.description .. " Triple",
+		drawtype = "nodebox",
+		tiles = node.tiles,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		sunlight_propagates = true,
+	                                                            
+		node_box = {
+				type = "fixed",
+				fixed = {{-0.5, -0.5, 0, 0.5, 1.5, 0}, 
+					   {-0.5, -0.5, 0, 1.5, 0.5, 0}},
+			},
+		selection_box = {
+				type = "fixed",
+				fixed = {{-0.5, -0.5, -0.25, 0.5, 0.5, 0.25}},
+			},
+	
+		groups = {cracky=3},
+		use_texture_alpha = true,
+	})
+	
+	minetest.register_craft({output = "glass_stained:" .. node.name .. "_triple",
+		recipe ={
+			{"glass_stained:" .. node.name,""},
+			{"glass_stained:" .. node.name,"glass_stained:" .. node.name,},
+		},
+	})
+	
+	minetest.register_craft({output = "glass_stained:" .. node.name .. " 3",
+	        type = "shapeless",
+	        recipe ={ "glass_stained:" .. node.name .. "_triple" }
+	})
+	
+	
+	-- Quadruple pane: all parts save for bottom left are decorative
+	
+	minetest.register_node("glass_stained:" .. node.name .. "_quadruple", {
+		description = node.description .. " Quadruple",
+		drawtype = "nodebox",
+		tiles = node.tiles,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		sunlight_propagates = true,
+	                                                            
+		node_box = {
+				type = "fixed",
+				fixed = {{-0.5, -0.5, 0, 1.5, 1.5, 0}},
+			},
+		selection_box = {
+				type = "fixed",
+				fixed = {{-0.5, -0.5, -0.25, 0.5, 0.5, 0.25}},
+			},
+	
+		groups = {cracky=3},
+		use_texture_alpha = true,
+	})
+	
+	minetest.register_craft({output = "glass_stained:" .. node.name .. "_quadruple",
+		recipe ={
+			{"glass_stained:" .. node.name,"glass_stained:" .. node.name,},
+			{"glass_stained:" .. node.name,"glass_stained:" .. node.name,},
+		},
+	})
+	
+	minetest.register_craft({output = "glass_stained:" .. node.name .. " 4",
+	        type = "shapeless",
+	        recipe ={ "glass_stained:" .. node.name .. "_quadruple" }
+	})
+	
+	
+	-- Noncuple pane: 3x3, all parts save for the center are decorative
+	
+	minetest.register_node("glass_stained:" .. node.name .. "_noncuple", {
+		description = node.description .. " Noncuple",
+		drawtype = "nodebox",
+		tiles = node.tiles,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		sunlight_propagates = true,
+	                                                            
+		node_box = {
+				type = "fixed",
+				fixed = {{-1.5, -1.5, 0, 1.5, 1.5, 0}},
+			},
+		selection_box = {
+				type = "fixed",
+				fixed = {{-0.5, -0.5, -0.25, 0.5, 0.5, 0.25}},
+			},
+	
+		groups = {cracky=3},
+		use_texture_alpha = true,
+	})
+	
+	minetest.register_craft({output = "glass_stained:" .. node.name .. "_noncuple",
+		recipe ={
+			{"glass_stained:" .. node.name,"glass_stained:" .. node.name,"glass_stained:" .. node.name},
+			{"glass_stained:" .. node.name,"glass_stained:" .. node.name,"glass_stained:" .. node.name},
+			{"glass_stained:" .. node.name,"glass_stained:" .. node.name,"glass_stained:" .. node.name},
+		},
+	})
+	
+	minetest.register_craft({output = "glass_stained:" .. node.name .. " 9",
+	        type = "shapeless",
+	        recipe ={ "glass_stained:" .. node.name .. "_noncuple" }
+	})
+	
 	
 	::eol::
 
 end
 
+-- A properly connecting xpanes alternative
 xpanes.register_pane("bar_top", {
 	description = "Iron bar fancy top",
 	textures = {"xpanes_bar_fancy.png","xpanes_bar_fancy.png","default_glass_detail.png"},
