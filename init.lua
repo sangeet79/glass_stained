@@ -10,7 +10,7 @@ local node_list = {
 			{"default:glass"},
 			{"default:glass"},
 		},
-		yield = 16,
+		yield = 8,
 	},
 	{	name = "obsidian_glass_normal", 
 		description = "Normal Obsidian Glass", 
@@ -20,7 +20,7 @@ local node_list = {
 			{"default:obsidian_glass"},
 			{"default:obsidian_glass"},
 		},
-		yield = 16,
+		yield = 8,
 	},
 	
 	-- STEEL BARS -----------------------------------------------------
