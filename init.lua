@@ -241,7 +241,7 @@ for _,node in ipairs(node_list) do
 	            {-0.5, -0.5, -0.25, 0.5, 0.5, 0.25},
 	        },
 	    },
-		groups = {cracky=3},
+		groups = { cracky = 3 },
 		use_texture_alpha = true,
 	})
 	
@@ -250,6 +250,7 @@ for _,node in ipairs(node_list) do
 		recipe = node.recipe
 	})
 	
+	-- It might be necessary to skip the multiple nodes (e.g. for top-only panes)
 	if node.no_derivatives then
 		goto eol
 	end
@@ -275,7 +276,7 @@ for _,node in ipairs(node_list) do
 	            {-0.5, -0.5, -0.25, 0.5, 0.5, 0.25},
 	        },
 	    },
-		groups = {cracky=3},
+		groups = { cracky = 3 },
 		use_texture_alpha = true,
 	})
 
@@ -314,7 +315,7 @@ for _,node in ipairs(node_list) do
 				fixed = {{-0.5, -0.5, -0.25, 0.5, 0.5, 0.25}},
 			},
 	
-		groups = {cracky=3},
+		groups = { cracky = 3 },
 		use_texture_alpha = true,
 	})
 	
@@ -350,7 +351,7 @@ for _,node in ipairs(node_list) do
 				fixed = {{-0.5, -0.5, -0.25, 0.5, 0.5, 0.25}},
 			},
 	
-		groups = {cracky=3},
+		groups = { cracky = 3 },
 		use_texture_alpha = true,
 	})
 	
@@ -386,7 +387,7 @@ for _,node in ipairs(node_list) do
 				fixed = {{-0.5, -0.5, -0.25, 0.5, 0.5, 0.25}},
 			},
 	
-		groups = {cracky=3},
+		groups = { cracky = 3 },
 		use_texture_alpha = true,
 	})
 	

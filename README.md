@@ -35,7 +35,6 @@ XXX
 XXX
 
 where X is the given pane type
-
 ```
 
 The combined pieces can always be broken down into the constituent 
