@@ -270,7 +270,7 @@ for _,node in ipairs(node_list) do
 	        },
 	    },
 		groups = { cracky = 3 },
-		use_texture_alpha = true,
+		use_texture_alpha = "blend",
 	})
 	
 	minetest.register_craft({
@@ -306,7 +306,7 @@ for _,node in ipairs(node_list) do
 	        },
 	    },
 		groups = { cracky = 3 },
-		use_texture_alpha = true,
+		use_texture_alpha = "blend",
 	})
 
 	minetest.register_craft({
@@ -346,7 +346,7 @@ for _,node in ipairs(node_list) do
 				fixed = {{-0.5, -0.5, -0.25, 0.5, 0.5, 0.25}},
 			},
 		groups = { cracky = 3 },
-		use_texture_alpha = true,
+		use_texture_alpha = "blend",
 	})
 	
 	minetest.register_craft({
@@ -381,7 +381,7 @@ for _,node in ipairs(node_list) do
 				fixed = {{-0.5, -0.5, -0.25, 0.5, 0.5, 0.25}},
 			},
 		groups = { cracky = 3 },
-		use_texture_alpha = true,
+		use_texture_alpha = "blend",
 	})
 	
 	minetest.register_craft({
@@ -416,7 +416,7 @@ for _,node in ipairs(node_list) do
 				fixed = {{-0.5, -0.5, -0.25, 0.5, 0.5, 0.25}},
 			},
 		groups = { cracky = 3 },
-		use_texture_alpha = true,
+		use_texture_alpha = "blend",
 	})
 	
 	minetest.register_craft({
